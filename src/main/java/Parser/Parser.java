@@ -51,18 +51,25 @@ public class Parser {
     private int parserCounter = 0;
 
     public List<ParserResult> parse(String url) throws IOException {
+        List<ParserResult> parserResults = new ArrayList<>();
+        parse(url, parserResults);
+        return parserResults;
+    }
+
+
+    public void parse(String url,  List<ParserResult> parserResults) throws IOException {
 
         System.out.println("\n\nParsing page: '" + url + "'");
 
         Document doc = Jsoup.connect(url).get();
         Elements newsHeadlines = doc.select(selectorA);
 
-        List<ParserResult> parserResults = new ArrayList<>();
+       // List<ParserResult> parserResults = new ArrayList<>();
 
         for (Element headline : newsHeadlines) {
             if (parserCounter++ > maxLimit) {
                 System.out.println("\n\n\n\nFetched max limit: '" + maxLimit + "'");
-                return parserResults;
+                return ;
             }
             try {
                 String u = headline.absUrl("href");
@@ -79,7 +86,7 @@ public class Parser {
 
                     if (parserResults.size() > limit) {
                         System.out.println("\n\n\n\nFound enough notes: '" + limit + "'");
-                        return parserResults;
+                        return;
                     }
 
                 }
@@ -91,9 +98,8 @@ public class Parser {
 
         Element pages = doc.select(selectorNextPage).last();
         String u = pages.absUrl("href");
-        parse(u);
+        parse(u, parserResults);
 
-        return parserResults;
     }
 
     public ParserResult parseItem(String url) throws Exception {

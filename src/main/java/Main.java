@@ -58,9 +58,12 @@ public class Main {
                 parser.setMaxAdsCount(maxAdsCount);
 
 
-
                 List<ParserResult> result = parser.parse(url);
                 FileWriter myWriter = new FileWriter(getTimestamp() + ".txt");
+
+                myWriter.write("Found results " + result.size() + "\n");
+                System.out.println("Found results " + result.size() + "\n");
+
                 for (ParserResult r : result) {
                     myWriter.write(r + "\n");
                     System.out.println(r);
