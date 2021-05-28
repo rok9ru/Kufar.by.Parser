@@ -52,7 +52,7 @@ public class ParserResult {
     @Override
     public String toString() {
         return "ParserResult{" +
-                "itemURl='" + itemURl + '\'' +
+                "itemURl=' " + itemURl + " '" +
                 ", datetime='" + datetime + '\'' +
                 ", userUrl='" + userUrl + '\'' +
                 ", userId='" + userId + '\'' +
